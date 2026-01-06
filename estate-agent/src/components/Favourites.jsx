@@ -1,6 +1,6 @@
 export default function Favourites({ favourites, removeFav, clearFavs }) {
   return (
-    <div style={{ marginTop: "30px" }}>
+    <div>
       <h2>Favourites</h2>
 
       {favourites.length === 0 && <p>No favourites added.</p>}
@@ -9,13 +9,35 @@ export default function Favourites({ favourites, removeFav, clearFavs }) {
         <div
           key={p.id}
           style={{
-            border: "1px solid #ccc",
-            padding: "8px",
-            marginBottom: "8px"
+            display: "flex",
+            gap: "10px",
+            marginBottom: "12px",
+            borderBottom: "1px solid #eee",
+            paddingBottom: "10px"
           }}
         >
-          <p>{p.location}</p>
-          <button onClick={() => removeFav(p.id)}>Remove</button>
+          {/* IMAGE */}
+          <img
+            src={p.picture}
+            alt={p.location}
+            style={{
+              width: "70px",
+              height: "70px",
+              objectFit: "cover",
+              borderRadius: "6px"
+            }}
+          />
+
+          {/* DETAILS */}
+          <div style={{ flex: 1 }}>
+            <p style={{ margin: "0 0 6px 0", fontSize: "14px" }}>
+              {p.location}
+            </p>
+
+            <button onClick={() => removeFav(p.id)}>
+              Remove
+            </button>
+          </div>
         </div>
       ))}
 

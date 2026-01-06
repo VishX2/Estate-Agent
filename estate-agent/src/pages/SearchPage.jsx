@@ -40,34 +40,43 @@ export default function SearchPage() {
 
       <SearchForm onSearch={setFilters} />
 
-      {filteredProperties.map((p) => (
-        <div key={p.id} className="property-card">
-          <img src={p.picture} alt={p.location} />
+      {/* 🔑 THIS WRAPPER WAS MISSING */}
+      <div className="search-layout">
 
-          <div className="property-content">
-            <h3>£{p.price.toLocaleString()}</h3>
-            <p>{p.location}</p>
-            <p>{p.bedrooms} bedrooms · {p.type}</p>
+        {/* 🔑 GRID WRAPPER WAS MISSING */}
+        <div className="property-grid">
+          {filteredProperties.map((p) => (
+            <div key={p.id} className="property-card">
+              <img src={p.picture} alt={p.location} />
 
-            <div className="property-actions">
-              <button onClick={() => navigate(`/property/${p.id}`)}>
-                View Details
-              </button>
+              <div className="property-content">
+                <h3>£{p.price.toLocaleString()}</h3>
+                <p>{p.location}</p>
+                <p>{p.bedrooms} bedrooms · {p.type}</p>
 
-              <button onClick={() => addToFav(p)}>
-                ❤️ Favourite
-              </button>
+                <div className="property-actions">
+                  <button onClick={() => navigate(`/property/${p.id}`)}>
+                    View Details
+                  </button>
+
+                  <button onClick={() => addToFav(p)}>
+                    ❤️ Favourite
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
 
-      <div className="favourites">
-        <Favourites
-          favourites={favourites}
-          removeFav={removeFav}
-          clearFavs={clearFavs}
-        />
+        {/* FAVOURITES SIDEBAR */}
+        <div className="favourites">
+          <Favourites
+            favourites={favourites}
+            removeFav={removeFav}
+            clearFavs={clearFavs}
+          />
+        </div>
+
       </div>
     </div>
   );
