@@ -35,48 +35,40 @@ export default function SearchPage() {
   });
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="page">
       <h1>Search Page</h1>
 
       <SearchForm onSearch={setFilters} />
 
       {filteredProperties.map((p) => (
-        <div
-          key={p.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "12px",
-            marginBottom: "12px"
-          }}
-        >
-          <img
-            src={p.picture}
-            alt={p.location}
-            style={{ width: "200px", display: "block" }}
-          />
+        <div key={p.id} className="property-card">
+          <img src={p.picture} alt={p.location} />
 
-          <p><strong>{p.location}</strong></p>
-          <p>£{p.price.toLocaleString()}</p>
-          <p>{p.bedrooms} bedrooms · {p.type}</p>
+          <div className="property-content">
+            <h3>£{p.price.toLocaleString()}</h3>
+            <p>{p.location}</p>
+            <p>{p.bedrooms} bedrooms · {p.type}</p>
 
-          <button onClick={() => navigate(`/property/${p.id}`)}>
-            View Details
-          </button>
+            <div className="property-actions">
+              <button onClick={() => navigate(`/property/${p.id}`)}>
+                View Details
+              </button>
 
-          <button
-            onClick={() => addToFav(p)}
-            style={{ marginLeft: "10px" }}
-          >
-            ❤️ Add to Favourites
-          </button>
+              <button onClick={() => addToFav(p)}>
+                ❤️ Favourite
+              </button>
+            </div>
+          </div>
         </div>
       ))}
 
-      <Favourites
-        favourites={favourites}
-        removeFav={removeFav}
-        clearFavs={clearFavs}
-      />
+      <div className="favourites">
+        <Favourites
+          favourites={favourites}
+          removeFav={removeFav}
+          clearFavs={clearFavs}
+        />
+      </div>
     </div>
   );
 }
