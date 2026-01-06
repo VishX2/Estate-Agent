@@ -14,8 +14,19 @@ export default function PropertyPage() {
       <Link to="/">← Back to Search</Link>
 
       <h1>{property.location}</h1>
-      <p>Price: £{property.price}</p>
-      <p>{property.description}</p>
+
+      <img
+        src={property.picture}
+        alt={property.location}
+        style={{ width: "400px", marginBottom: "16px" }}
+      />
+
+      <p><strong>Price:</strong> £{property.price.toLocaleString()}</p>
+      <p><strong>Bedrooms:</strong> {property.bedrooms}</p>
+      <p><strong>Type:</strong> {property.type}</p>
+      <p><strong>Tenure:</strong> {property.tenure}</p>
+
+      <p style={{ marginTop: "16px" }}>{property.description}</p>
     </div>
   );
 }
