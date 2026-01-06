@@ -2,10 +2,26 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import data from "../data/properties.json";
 import SearchForm from "../components/SearchForm";
+import Favourites from "../components/Favourites";
 
 export default function SearchPage() {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({});
+  const [favourites, setFavourites] = useState([]);
+
+  function addToFav(property) {
+    if (!favourites.find((f) => f.id === property.id)) {
+      setFavourites([...favourites, property]);
+    }
+  }
+
+  function removeFav(id) {
+    setFavourites(favourites.filter((f) => f.id !== id));
+  }
+
+  function clearFavs() {
+    setFavourites([]);
+  }
 
   const filteredProperties = data.properties.filter((p) => {
     return (
@@ -36,7 +52,7 @@ export default function SearchPage() {
           <img
             src={p.picture}
             alt={p.location}
-            style={{ width: "200px", display: "block", marginBottom: "8px" }}
+            style={{ width: "200px", display: "block" }}
           />
 
           <p><strong>{p.location}</strong></p>
@@ -46,8 +62,21 @@ export default function SearchPage() {
           <button onClick={() => navigate(`/property/${p.id}`)}>
             View Details
           </button>
+
+          <button
+            onClick={() => addToFav(p)}
+            style={{ marginLeft: "10px" }}
+          >
+            ❤️ Add to Favourites
+          </button>
         </div>
       ))}
+
+      <Favourites
+        favourites={favourites}
+        removeFav={removeFav}
+        clearFavs={clearFavs}
+      />
     </div>
   );
 }
