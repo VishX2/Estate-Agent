@@ -1,14 +1,30 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import data from "../data/properties.json";
+import SearchForm from "../components/SearchForm";
 
 export default function SearchPage() {
   const navigate = useNavigate();
+  const [filters, setFilters] = useState({});
+
+  const filteredProperties = data.properties.filter((p) => {
+    return (
+      (!filters.type || p.type === filters.type) &&
+      (!filters.minPrice || p.price >= Number(filters.minPrice)) &&
+      (!filters.maxPrice || p.price <= Number(filters.maxPrice)) &&
+      (!filters.bedrooms || p.bedrooms >= Number(filters.bedrooms)) &&
+      (!filters.postcode ||
+        p.location.toUpperCase().includes(filters.postcode.toUpperCase()))
+    );
+  });
 
   return (
     <div style={{ padding: "20px" }}>
       <h1>Search Page</h1>
 
-      {data.properties.map((p) => (
+      <SearchForm onSearch={setFilters} />
+
+      {filteredProperties.map((p) => (
         <div
           key={p.id}
           style={{
