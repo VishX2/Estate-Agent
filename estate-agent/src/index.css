@@ -177,6 +177,10 @@ form button {
   border-radius: 6px;
 }
 
+.image-gallery img:hover {
+  opacity: 0.9;
+}
+
 /* =========================
    RESPONSIVE DESIGN
    ========================= */

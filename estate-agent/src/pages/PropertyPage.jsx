@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import data from "../data/properties.json";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import ImageGallery from "../components/ImageGallery";
 
 export default function PropertyPage() {
   const { id } = useParams();
@@ -11,23 +12,24 @@ export default function PropertyPage() {
     return <h2>Property not found</h2>;
   }
 
+  // Build image list based on property id
+  const images = [
+    `/images/${property.id}pic1.jpg`,
+    `/images/${property.id}pic2.jpg`,
+    `/images/${property.id}pic3.jpg`
+  ];
+
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="page">
       <Link to="/">← Back to Search</Link>
 
       <h1>{property.location}</h1>
+      <p>£{property.price.toLocaleString()}</p>
 
-      <img
-        src={property.picture}
-        alt={property.location}
-        style={{ width: "400px", marginBottom: "16px" }}
-      />
+      {/* IMAGE GALLERY */}
+      <ImageGallery images={images} />
 
-      <p><strong>Price:</strong> £{property.price.toLocaleString()}</p>
-      <p><strong>Bedrooms:</strong> {property.bedrooms}</p>
-      <p><strong>Type:</strong> {property.type}</p>
-      <p><strong>Tenure:</strong> {property.tenure}</p>
-
+      {/* DETAILS TABS */}
       <Tabs>
         <TabList>
           <Tab>Description</Tab>
@@ -41,8 +43,8 @@ export default function PropertyPage() {
 
         <TabPanel>
           <img
-            src={property.picture}
-            alt="Floor Plan"
+            src={`/images/${property.id}pic1.jpg`}
+            alt="Floor plan"
             style={{ width: "100%" }}
           />
         </TabPanel>
