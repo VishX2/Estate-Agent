@@ -13,11 +13,13 @@ export default function PropertyPage() {
   }
 
   // Build image list based on property id
-  const images = [
-    `/images/${property.id}pic1.jpg`,
-    `/images/${property.id}pic2.jpg`,
-    `/images/${property.id}pic3.jpg`
-  ];
+  const baseImage = property.picture.replace("small", "");
+
+const images = [
+  `/${baseImage}`,
+  `/${baseImage.replace("pic1", "pic2")}`,
+  `/${baseImage.replace("pic1", "pic3")}`
+];
 
   return (
     <div className="page">
@@ -42,12 +44,13 @@ export default function PropertyPage() {
         </TabPanel>
 
         <TabPanel>
-          <img
-            src={`/images/${property.id}pic1.jpg`}
-            alt="Floor plan"
-            style={{ width: "100%" }}
-          />
+            <img
+                src={`/images/${property.id}floor.jpg`}
+                alt="Floor plan"
+                style={{ width: "100%", borderRadius: "8px" }}
+            />
         </TabPanel>
+
 
         <TabPanel>
           <iframe
